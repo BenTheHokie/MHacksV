@@ -18,11 +18,19 @@ function get_friends() {
 				success: function(results) {
 					console.log(results);
 					all_friends = results;
+					show_friends();
 					return results;
 				}
 			});
 		}
 	});
+}
+
+function show_friends() {
+  $('.friendcontainer').empty();
+  for(var i = 0;i<all_friends.length;i++){
+    $('.friendcontainer').append('<li>'+all_friends[i].get('name')+' <a onClick="add_roommate('+i+')" href="#">Add</a></li>');
+  }
 }
 
 function create_new_room() {
@@ -52,4 +60,5 @@ function add_roommate(index) {
 	var members = curr_room.relation("members");
 	members.add(all_friends[index]);
     curr_room.save();
+    $('a.close-reveal-modal').trigger('click');
 }
