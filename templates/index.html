@@ -1,89 +1,102 @@
 {% include 'header.html' %}  
-    <nav class="top-bar" data-topbar role="navigation">
-      <ul class="title-area">
-	<li class="name">
-	  <h1><a href="#">RoomHelpr</a></h1>
-	</li>
-	<!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-	<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-      </ul>
 
-      <section class="top-bar-section">
-	<!-- Right Nav Section -->
-	<ul class="left">
-	  <li>
-		<!-- Parse.User.logOut(); -->
-	    <button class="login" onclick="logInUser()">LOGIN</button>
-	  </li>
-	</ul>
-      </section>
-    </nav>
-    
-     <div class="row">
+<nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="#">RoomHelpr</a></h1>
+    </li>
+    <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a>
+    </li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="left">
+      <li>
+        <!-- Parse.User.logOut(); -->
+        <button class="login" onclick="logInUser()">LOGIN</button>
+      </li>
+    </ul>
+  </section>
+</nav>
+
+<div class="row">
+  <div class="large-12 columns">
     <h2>Roommates</h2>
     <ul>
-      <li>Seymour Butz <a href="#">Delete</a></li>
-      <li>Hugh Mann <a href="#">Delete</a></li>
-      <li>Stannis Baratheon <a href="#">Delete</a></li>
+      <li>Seymour Butz <a href="#">Delete</a>
+      </li>
+      <li>Hugh Mann <a href="#">Delete</a>
+      </li>
+      <li>Stannis Baratheon <a href="#">Delete</a>
+      </li>
     </ul>
     <input type="button" class="small button" value="Add Roommate">
-    </div>
-    <div class="row">
-      <div class="large-12 columns">
-	<h2>Bulletins</h2>
-	<table>
-	  <thead>
-	    <th width="100px">Author</th>
-	    <th>Post</th>
-	    <th>Date</th>
-	  </thead>
-	  <tbody>
-	    <tr>
-	  <td>Landlord</td><td>guys please do your chores or I will evict you. for real this time.</td><td>Jan 17, 2015</td>
-	    </tr>
-	  </tbody>
-	</table>
-	<textarea placeholder="New Bulletin Post"></textarea><input class="small button" value="Make Post" type="button">
-      </div>
-      <div class="small-6 columns">
-	<h2>Bills to Pay</h2>
-	<table>
-	  <thead>
-	  <th>Bill</th>
-	  <th>Share of Bill</th>
-	  <th>Due Date</th>
-	  </thead>
-	  <tbody>
-	  <tr>
-	    <td>Electricity</td><td>$512.00</td><td>Overdue</td>
-	  </tr>
-	  <tr>
-	    <td>Private Jet</td><td>$500.00</td><td>Overdue</td>
-	  </tr>
-	  </tbody>
-	</table>
-	<input type="text" placeholder="Type of Bill (e.g. electric bill)">
-	<input type="text" placeholder="Dollar Value of Bill (e.g. 123.45)">
-	<input type="button" class="small button" value="Split Bill!">
-      </div>
-      <div class="small-6 columns">
-	<h2>Chores to Do</h2>
-	<table>
-	  <thead>
-	  <th>Chore</th>
-	  <th>Due Date</th>
-	  </thead>
-	  <tbody>
-	  <tr>
-	    <td>Clean Toilet</td><td>Overdue</td>
-	  </tr>
-	  </tbody>
-	</table>
-	<select></select>
-	<input type="text" placeholder="Type of Chore">
-	<input class="small button" type="button" value="Assign Chore">
-      </div>
-      
-      
-    </div>
+  </div>
+  <div class="large-12 columns">
+    <h2>Bulletins</h2>
+    <table>
+      <thead>
+        <th width="100px">Author</th>
+        <th>Post</th>
+        <th>Date</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Landlord</td>
+          <td>guys please do your chores or I will evict you. for real this time.</td>
+          <td>Jan 17, 2015</td>
+        </tr>
+      </tbody>
+    </table>
+    <textarea placeholder="New Bulletin Post"></textarea>
+    <input class="small button" value="Make Post" type="button">
+  </div>
+  <div class="small-6 columns">
+    <h2>Bills to Pay</h2>
+    <table>
+      <thead>
+        <th>Bill</th>
+        <th>Share of Bill</th>
+        <th>Due Date</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Electricity</td>
+          <td>$512.00</td>
+          <td>Overdue</td>
+        </tr>
+        <tr>
+          <td>Private Jet</td>
+          <td>$500.00</td>
+          <td>Overdue</td>
+        </tr>
+      </tbody>
+    </table>
+    <input type="text" placeholder="Type of Bill (e.g. electric bill)">
+    <input type="text" placeholder="Dollar Value of Bill (e.g. 123.45)">
+    <input type="button" class="small button" value="Split Bill!">
+  </div>
+  <div class="small-6 columns">
+    <h2>Chores to Do</h2>
+    <table>
+      <thead>
+        <th>Chore</th>
+        <th>Due Date</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Clean Toilet</td>
+          <td>Overdue</td>
+        </tr>
+      </tbody>
+    </table>
+    <select></select>
+    <input type="text" placeholder="Type of Chore">
+    <input class="small button" type="button" value="Assign Chore">
+  </div>
+
+
+</div>
 {% include 'footer.html' %}
