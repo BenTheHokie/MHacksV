@@ -84,18 +84,22 @@ function add_roommate(index) {
     $('a.close-reveal-modal').trigger('click');
 }
 
-function create_bulletin(post){
+function create_bulletin(post,anon){
 	var Post = Parse.Object.extend("Post");
 	var newPost = new Post();
 	newPost.set("post", post);
-	newPost.set("author", user.get("name"));
+	if(anon)
+	  newPost.set("author","Anonymous");
+	else
+	  newPost.set("author", user.get("name"));
 	
 	newPost.save().then(function() {
 			var currentRoom = user.get("lastAccessedRoom");
 			var relation =  currentRoom.relation("bulletin_board");
 			relation.add(newPost);
 			currentRoom.save();
-			get_bulletins();
+			
+			setTimeout(get_bulletins(),500);
 			
 		}, function(error) {
 	});
@@ -130,5 +134,11 @@ get_bulletins();
 $('#bulletinpost').click(function(){
   var text = $('#bulletintext').val();
   console.log(text);
-  create_bulletin(text);
+  create_bulletin(text,false);
+});
+
+$('#anonpost').click(function(){
+  var text = $('#bulletintext').val();
+  console.log(text);
+  create_bulletin(text,true);
 });
