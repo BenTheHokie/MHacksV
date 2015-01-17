@@ -68,7 +68,7 @@ window.fbAsyncInit = function() {
 function logInUser() {
     Parse.FacebookUtils.logIn("public_profile,email,user_friends", {
         success: function(user) {
-            /* if (!user.existed()) {
+             if (!user.existed()) {
 				      console.log("User signed up and logged in through Facebook!");
 			      } else {
 			        console.log("User logged in through Facebook!");
@@ -83,7 +83,7 @@ function logInUser() {
 				          console.log("User cancelled the Facebook login or did not fully authorize.");
 				        }
 			        });
-			      }*/
+			      }
             checkLoginState();
         },
         error: function(user, error) {
