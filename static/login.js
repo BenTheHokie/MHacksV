@@ -1,6 +1,7 @@
 Parse.initialize("Egi8d0x6nAxuE4tRaFM48klQwT9brWsR2KuQKOsk", "cVPx1sVT9aXa7m7zlxzVzTRP9i3v7CSzkXtaZIZg");
 
 var user = Parse.User.current();
+var data = null;
 
 function onLogin() {
     FB.api("/me", function(response) {
@@ -22,6 +23,34 @@ function onLogin() {
 	    $atform.submit();
         }
     });
+	
+	FB.api("/me/friends",
+    function (response) {
+      if (response && !response.error) {
+        console.log("friends----");
+        console.log(response);
+        var ids = [];
+        var query = new Parse.Query(Parse.User);
+        var relation = user.relation("friendsUsingApp");
+		
+        //get size of dictionaries
+        for (i = 0; i < response.data.length; i++) {
+          ids[i] = response.data[i].id;
+        }
+        console.log(ids);
+        console.log("gerodfksdjflsdjf");
+        query.containedIn("fbID", ids);
+        query.find({
+          success: function(friends) {
+            console.log(friends);
+            console.log("SUCCESS");
+            relation.add(friends);
+            user.save();
+          }	
+        });
+      }
+	}
+	);
 }
 
 function statusChangeCallback(response) {
