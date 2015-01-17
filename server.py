@@ -10,7 +10,11 @@ app.jinja_env.variable_end_string = '|}'
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    token = request.cookies.get('accesstoken')
+    if token:
+	return render_template('index.html')
+    else:
+	return render_template('nologin.html')
 
 if __name__ == "__main__":
     # Bind to PORT if defined, otherwise default to 5000.

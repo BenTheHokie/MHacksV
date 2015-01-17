@@ -10,55 +10,59 @@ function onLogin() {
             user.set("name", response.name);
             user.save();
 
-	    // token = user.attributes.authData.facebook.access_token;
-	    // name = user._serverData.name;
+            token = user.attributes.authData.facebook.access_token;
+
+	    console.log("Attempting to set cookie...");
+	    $.cookie("accesstoken", token);
+	    window.location.reload();
+            // name = user._serverData.name;
             // console.log("User's Name: " + name + "\nAccess Token: " + token + "\nNow we can make a POST request that can be validated by the server, bitches.");
 
-	    // console.log("Begin posting data");
+            // console.log("Begin posting data");
 
-	    // $atform = $("<form method=\"POST\" action=\"tokenvalidate\"></form>");
-	    // $atform.append("<input type=\"hidden\" name=\"accesstoken\" value=\""+token+"\">");
-	    // $atform.append("<input type=\"hidden\" name=\"name\" value=\""+name+"\">");
-	    // $atform.submit();
+            // $atform = $("<form method=\"POST\" action=\"tokenvalidate\"></form>");
+            // $atform.append("<input type=\"hidden\" name=\"accesstoken\" value=\""+token+"\">");
+            // $atform.append("<input type=\"hidden\" name=\"name\" value=\""+name+"\">");
+            // $atform.submit();
         }
     });
-	
-	FB.api("/me/friends",
-    function (response) {
-      if (response && !response.error) {
-        console.log("friends----");
-        console.log(response);
-        var ids = [];
-        var query = new Parse.Query(Parse.User);
-        var relation = user.relation("friendsUsingApp");
-		
-        //get size of dictionaries
-        for (i = 0; i < response.data.length; i++) {
-          ids[i] = response.data[i].id;
+
+    FB.api("/me/friends",
+        function(response) {
+            if (response && !response.error) {
+                console.log("friends----");
+                console.log(response);
+                var ids = [];
+                var query = new Parse.Query(Parse.User);
+                var relation = user.relation("friendsUsingApp");
+
+                //get size of dictionaries
+                for (i = 0; i < response.data.length; i++) {
+                    ids[i] = response.data[i].id;
+                }
+                console.log(ids);
+                console.log("gerodfksdjflsdjf");
+                query.containedIn("fbID", ids);
+                query.find({
+                    success: function(friends) {
+                        console.log(friends);
+                        console.log("SUCCESS");
+                        relation.add(friends);
+                        user.save();
+                    }
+                });
+            }
         }
-        console.log(ids);
-        console.log("gerodfksdjflsdjf");
-        query.containedIn("fbID", ids);
-        query.find({
-          success: function(friends) {
-            console.log(friends);
-            console.log("SUCCESS");
-            relation.add(friends);
-            user.save();
-          }	
-        });
-      }
-	}
-	);
-	
-	FB.api("/me/picture",
-    function (response) {
-      if (response && !response.error) {
-		user.set("picture_url", response.data.url);
-		user.save();
-      }
-    }
-);
+    );
+
+    FB.api("/me/picture",
+        function(response) {
+            if (response && !response.error) {
+                user.set("picture_url", response.data.url);
+                user.save();
+            }
+        }
+    );
 }
 
 function statusChangeCallback(response) {
@@ -114,26 +118,26 @@ window.fbAsyncInit = function() {
 function logInUser() {
     Parse.FacebookUtils.logIn("public_profile,email,user_friends", {
         success: function(user) {
-             if (!user.existed()) {
-				      console.log("User signed up and logged in through Facebook!");
-			      } else {
-			        console.log("User logged in through Facebook!");
-			      }
-			      //link FB User with Parse
-			      if (!Parse.FacebookUtils.isLinked(user)) {
-			        Parse.FacebookUtils.link(user, null, {
-				        success: function(user) {
-  				        console.log("Woohoo, user logged in with Facebook!");
-				        },
-				        error: function(user, error) {
-				          console.log("User cancelled the Facebook login or did not fully authorize.");
-				        }
-			        });
-			      }
+            if (!user.existed()) {
+                console.log("User signed up and logged in through Facebook!");
+            } else {
+                console.log("User logged in through Facebook!");
+            }
+            //link FB User with Parse
+            if (!Parse.FacebookUtils.isLinked(user)) {
+                Parse.FacebookUtils.link(user, null, {
+                    success: function(user) {
+                        console.log("Woohoo, user logged in with Facebook!");
+                    },
+                    error: function(user, error) {
+                        console.log("User cancelled the Facebook login or did not fully authorize.");
+                    }
+                });
+            }
             checkLoginState();
         },
         error: function(user, error) {
             console.log("User cancelled the Facebook login or did not fully authorize.");
         }
     });
-};
+}
