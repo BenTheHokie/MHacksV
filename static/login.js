@@ -8,7 +8,6 @@ function onLogin() {
         if (response && !response.error) {
             user.set("fbID", response.id);
             user.set("name", response.name);
-
             user.save();
 
 	    // token = user.attributes.authData.facebook.access_token;
@@ -51,6 +50,15 @@ function onLogin() {
       }
 	}
 	);
+	
+	FB.api("/me/picture",
+    function (response) {
+      if (response && !response.error) {
+		user.set("picture_url", response.data.url);
+		user.save();
+      }
+    }
+);
 }
 
 function statusChangeCallback(response) {
