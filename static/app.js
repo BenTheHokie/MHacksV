@@ -1,1 +1,1 @@
-$(".login").click(onLogin);
+$(".login").click(logInUser);
