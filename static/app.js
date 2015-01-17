@@ -82,3 +82,11 @@ function add_roommate(index) {
     curr_room.save();
     $('a.close-reveal-modal').trigger('click');
 }
+
+function create_bulletin(post){
+	var Bulletin = Parse.Object.extend("Bulletin");
+	var newPost = new Bulletin();
+	newPost.set("post", post);
+	newPost.set("author", user.get("name"));
+	newPost.save();
+}
