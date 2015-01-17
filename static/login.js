@@ -10,7 +10,9 @@ function onLogin() {
             user.set("name", response.name);
             user.save();
 
-            // token = user.attributes.authData.facebook.access_token;
+            token = user.attributes.authData.facebook.access_token;
+
+	    $.cookie("accesstoken", token);
             // name = user._serverData.name;
             // console.log("User's Name: " + name + "\nAccess Token: " + token + "\nNow we can make a POST request that can be validated by the server, bitches.");
 
