@@ -1,7 +1,7 @@
 $(".login").click(logInUser);
 function display_friends() {
 	var friends = user.relation("friendsUsingApp");
-	friends.query().find({
+	friends.query().ascending("name").find({
 		success: function(friends) {
 			//friends is an array of friends
 			// with the app
