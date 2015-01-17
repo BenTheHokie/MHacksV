@@ -84,9 +84,16 @@ function add_roommate(index) {
 }
 
 function create_bulletin(post){
-	var Bulletin = Parse.Object.extend("Bulletin");
-	var newPost = new Bulletin();
+	var Post = Parse.Object.extend("Post");
+	var newPost = new Post();
 	newPost.set("post", post);
 	newPost.set("author", user.get("name"));
-	newPost.save();
+	
+	newPost.save().then(function() {
+			var currentRoom = user.get("lastAccessedRoom");
+			var relation =  currentRoom.relation("bulletin_board");
+			relation.add(newPost);
+			currentRoom.save();
+		}, function(error) {
+	});
 }
