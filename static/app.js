@@ -1,5 +1,6 @@
 $(".login").click(logInUser);
 var all_friends = null;
+var boardposts = null;
 
 //get room's members (except for you)
 function get_members() {
@@ -94,6 +95,8 @@ function create_bulletin(post){
 			var relation =  currentRoom.relation("bulletin_board");
 			relation.add(newPost);
 			currentRoom.save();
+			get_bulletins();
+			
 		}, function(error) {
 	});
 }
@@ -102,10 +105,30 @@ function get_bulletins() {
 	var currentRoom = user.get("lastAccessedRoom");
 	var relation = currentRoom.relation("bulletin_board");
 	var query = relation.query();
+	query.limit(10);
+	query.descending('createdAt');
 	query.find({
 		success:function(currentBulletins) {
 			console.log(currentBulletins);
+			boardposts = currentBulletins;
+			show_bulletins();
 			return currentBulletins;
 		}
 	});
 }
+
+function show_bulletins() {
+  $(".boardcontainer").empty();
+
+  for(var i = 0;i<boardposts.length;i++){
+    $(".boardcontainer").append("<tr><td>"+boardposts[i].get('author')+"</td><td>"+boardposts[i].get('post')+"</td><td>"+boardposts[i].createdAt+"</td></tr>");
+  }
+}
+
+get_bulletins();
+
+$('#bulletinpost').click(function(){
+  var text = $('#bulletintext').val();
+  console.log(text);
+  create_bulletin(text);
+});
