@@ -103,6 +103,7 @@ function create_bulletin(post,anon){
 			
 		}, function(error) {
 	});
+}
 
 
 function get_bulletins() {
@@ -141,5 +142,4 @@ $('#anonpost').click(function(){
   var text = $('#bulletintext').val();
   console.log(text);
   create_bulletin(text,true);
-
 });
