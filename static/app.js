@@ -1,6 +1,17 @@
 $(".login").click(logInUser);
 var all_friends = null;
 
+//get room's members (except for you)
+function get_members() {
+	var curr_room = user.get("lastAccessedRoom");
+	var members = curr_room.relation("members");
+	members.query().notContainedIn("fbID", user.get("fbID")).find({
+		success: function(list) {
+			
+		}
+	})
+}
+
 //gets all the friends that aren't your roomies yet
 function get_friends() {
 	var curr_room = user.get("lastAccessedRoom")
