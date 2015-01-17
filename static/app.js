@@ -5,12 +5,20 @@ var all_friends = null;
 function get_members() {
 	var curr_room = user.get("lastAccessedRoom");
 	var members = curr_room.relation("members");
-	members.query().notContainedIn("fbID", user.get("fbID")).find({
+	var mq = members.query();
+	mq.notEqualTo("fbID", user.get("fbID"));
+	
+	mq.find({
 		success: function(list) {
-			
+			$(".roommatecontainer").empty();
+			for(var i = 0;i<list.length;i++){
+			  $(".roommatecontainer").append("<li>"+list[i].get('name')+"</li>");
+			}
 		}
-	})
+	});
 }
+
+get_members();
 
 //gets all the friends that aren't your roomies yet
 function get_friends() {
@@ -30,6 +38,7 @@ function get_friends() {
 					console.log(results);
 					all_friends = results;
 					show_friends();
+					//get_members();
 					return results;
 				}
 			});
