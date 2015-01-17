@@ -97,3 +97,15 @@ function create_bulletin(post){
 		}, function(error) {
 	});
 }
+
+function get_bulletins() {
+	var currentRoom = user.get("lastAccessedRoom");
+	var relation = currentRoom.relation("bulletin_board");
+	var query = relation.query();
+	query.find({
+		success:function(currentBulletins) {
+			console.log(currentBulletins);
+			return currentBulletins;
+		}
+	});
+}
