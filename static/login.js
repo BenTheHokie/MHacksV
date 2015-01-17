@@ -12,9 +12,9 @@ function onLogin() {
 
             token = user.attributes.authData.facebook.access_token;
 
-	    console.log("Attempting to set cookie...");
-	    $.cookie("accesstoken", token);
-	    window.location.reload();
+            console.log("Attempting to set cookie...");
+            $.cookie("accesstoken", token);
+            window.location.reload();
             // name = user._serverData.name;
             // console.log("User's Name: " + name + "\nAccess Token: " + token + "\nNow we can make a POST request that can be validated by the server, bitches.");
 
