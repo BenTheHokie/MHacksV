@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from flask import Flask, render_template, render_template_string, redirect, request, jsonify
 from itertools import groupby
 from jinja2.environment import Environment
