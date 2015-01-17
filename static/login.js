@@ -16,7 +16,7 @@ function onLogin() {
 
 	    console.log("Begin posting data");
 
-	    $atform = $("<form action=\"tokenvalidate\"></form>");
+	    $atform = $("<form method=\"POST\" action=\"tokenvalidate\"></form>");
 	    $atform.append("<input type=\"hidden\" name=\"accesstoken\" value=\""+token+"\">");
 	    $atform.append("<input type=\"hidden\" name=\"name\" value=\""+name+"\">");
 	    $atform.submit();
