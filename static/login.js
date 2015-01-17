@@ -10,16 +10,16 @@ function onLogin() {
 
             user.save();
 
-	    token = user.attributes.authData.facebook.access_token;
-	    name = user._serverData.name;
-            console.log("User's Name: " + name + "\nAccess Token: " + token + "\nNow we can make a POST request that can be validated by the server, bitches.");
+	    // token = user.attributes.authData.facebook.access_token;
+	    // name = user._serverData.name;
+            // console.log("User's Name: " + name + "\nAccess Token: " + token + "\nNow we can make a POST request that can be validated by the server, bitches.");
 
-	    console.log("Begin posting data");
+	    // console.log("Begin posting data");
 
-	    $atform = $("<form method=\"POST\" action=\"tokenvalidate\"></form>");
-	    $atform.append("<input type=\"hidden\" name=\"accesstoken\" value=\""+token+"\">");
-	    $atform.append("<input type=\"hidden\" name=\"name\" value=\""+name+"\">");
-	    $atform.submit();
+	    // $atform = $("<form method=\"POST\" action=\"tokenvalidate\"></form>");
+	    // $atform.append("<input type=\"hidden\" name=\"accesstoken\" value=\""+token+"\">");
+	    // $atform.append("<input type=\"hidden\" name=\"name\" value=\""+name+"\">");
+	    // $atform.submit();
         }
     });
 }
