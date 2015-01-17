@@ -1,3 +1,3 @@
 [submodule "parsepy"]
 	path = parsepy
-	url = git@github.com:dgrtwo/parsepy
+	url = https://github.com/dgrtwo/parsepy
