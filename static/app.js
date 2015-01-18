@@ -135,8 +135,26 @@ function show_bulletins() {
         $(".boardcontainer").append("<tr><td>" + boardposts[i].get('author') + "</td><td>" + boardposts[i].get('post') + "</td><td>" + boardposts[i].createdAt + "</td></tr>");
     }
 }
+
+function get_rooms() {
+    var usr = user.get("lastAccessedRoom");
+    usr.fetch({
+	success: function(result){
+	    console.log("LAR:");
+	    console.log(result);
+	    $('#currroomtext').text(result.attributes.name);
+	},
+	error: function(error) {
+	    console.log("LAR Error: "+error.message);
+	}
+    });
+
+}
+
 get_bulletins();
 get_friends();
+get_rooms();
+
 $('#bulletinpost').click(function() {
     var text = $('#bulletintext').val();
     console.log(text);
@@ -149,6 +167,12 @@ $('#anonpost').click(function() {
     create_bulletin(text, true);
 });
 
+$('#setroomtxt').click(function() {
+    var text = $('#setroomtxt').val();
+
+});
+
+$('#currroomtext').text(user.get("lastAccessedRoom"));
 function addChore() {
 	var date_time = $('#due_date').val();
 	var year = date_time.substring(0,4);
