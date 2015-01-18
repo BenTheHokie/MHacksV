@@ -196,5 +196,29 @@ function addChore() {
 		relation.add(friend_chore);
 		curr_room.save();
 		document.getElementById("choreForm").reset();
+		showChores();
     }, function(error) {});
 }
+
+function showChores(){
+    var currentRoom = user.get("lastAccessedRoom");
+    var relation = currentRoom.relation("chores");
+    var query = relation.query();
+    query.limit(10);
+    query.descending('createdAt');
+    query.find({
+        success: function(currentchores) {
+            console.log(currentchores);
+            //choreposts = currentchores;
+            //show_bulletins();
+	    $('.chorecontainer').empty();
+	    for (var i = 0; i < currentchores.length; i++) {
+		console.log(currentchores[i].get('dueDate'));
+		$(".chorecontainer").append("<tr><td>" + currentchores[i].get('chore') + "</td><td>" + currentchores[i].get('dueDate') + "</td></tr>");
+	    }
+            return currentchores;
+        }
+    });
+}
+
+showChores();
