@@ -15,7 +15,7 @@ function get_members() {
             all_members = list;
             $(".roommatecontainer").empty();
             for (var i = 0; i < list.length; i++) {
-                $(".roommatecontainer").append("<li>" + list[i].get('name') + "</li>");
+                $(".roommatecontainer").append("<li><img src='"+list[i].get('picture_url')+"' />" + list[i].get('name') + "</li>");
             }
         }
     });
@@ -53,7 +53,7 @@ function show_friends() {
     $('.friendcontainer').empty();
     $('.friendlist').empty();
     for (var i = 0; i < all_friends.length; i++) {
-        $('.friendcontainer').append('<li>' + all_friends[i].get('name') + ' <a onClick="add_roommate(' + i + ')" href="#">Add</a></li>');
+        $('.friendcontainer').append('<li><img src="'+all_friends[i].get('picture_url')+'" />' + all_friends[i].get('name') + ' <a onClick="add_roommate(' + i + ')" href="#">Add</a></li>');
     }
     for (var i = 0; i < all_members.length; i++) {
         $('.friendlist').append("<option value='" + i + "'>" + all_members[i].get('name') + "</option>");
