@@ -144,3 +144,14 @@ $('#anonpost').click(function(){
   console.log(text);
   create_bulletin(text,true);
 });
+
+function addChore() {
+	val date_time = $('#due_date').val();
+	val year = date_time[0:4];
+	val month = date_time[5:7];
+	val day = date_time[8:10];
+	val hour = date_time[11:13];
+	val min = date_time[14:];
+	val due_date = new Date(year, month, day, hour, min, 0, 0);
+	val chore = $('#chore').val();
+}
