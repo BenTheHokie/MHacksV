@@ -172,7 +172,6 @@ $('#setroomtxt').click(function() {
 
 });
 
-$('#currroomtext').text(user.get("lastAccessedRoom"));
 function addChore() {
 	var date_time = $('#due_date').val();
 	var year = date_time.substring(0,4);
