@@ -204,9 +204,7 @@ function addChore() {
 
 function splitBill() {
 	console.log(all_members.length);
-	if (all_members.length === 0) {
-		all_members.push(user);
-	}
+	all_members.push(user); 
 	var billAmount = parseFloat($('#billAmount').val());
 	console.log("HELL YEAH");
 	console.log(billAmount);
@@ -222,11 +220,12 @@ function splitBill() {
 	
 	var owners = newBill.relation("billOwners");
 	//since all_members doesn't include current user
-	for(var i =0;i<all_members.length;i++) {
-		owners.add(all_members[i]);
-	}
 	
 	newBill.save().then(function() {
+		for(var i =0;i<all_members.length;i++) {
+			all_members[i].relation("bills").add(newBill);
+			all_members[i].save();
+		}
 		var currentRoom = user.get("lastAccessedRoom");
 		currentRoom.fetch({
 			success: function(currentRoom) {
@@ -284,19 +283,27 @@ showBills();
 
 
 function updateRoomList(){
-   var relation = user.relation("rooms");
-   var query = relation.query();
-   query.ascending("name");
-   query.find({
-     success:function(response){
-       console.log(response);
-       $("#roomlist").empty();
-       for(var i = 0;i<response.length;i++){
-	 console.log(response[i].get('name'));
-	 $("#roomlist").append("<option>"+response[i].get('name')+"</option>")
-       }
-    }
-     
-  });
-}
+    var curr_room = user.get("lastAccessedRoom");
+	var relation = user.relation("rooms");
+	var query = relation.query();
+	query.ascending("name");
+	
+	curr_room.fetch({
+		success: function(curr_room) {
+			query.find({
+				success:function(response){
+				console.log(response);
+				$("#roomlist").empty();
+				for(var i = 0;i<response.length;i++){
+					if (response[i].objectId == curr_room.objectId) {
+						$("#roomlist").append("<option selected='selected'>"+response[i].get('name')+"</option>");
+					} else {
+						$("#roomlist").append("<option>"+response[i].get('name')+"</option>");
+					}		
+				} 
+				}, error: function(error) {} });
+		}, error: function(collection, error) {}
+	});
+}  
+
 updateRoomList();
