@@ -135,8 +135,26 @@ function show_bulletins() {
         $(".boardcontainer").append("<tr><td>" + boardposts[i].get('author') + "</td><td>" + boardposts[i].get('post') + "</td><td>" + boardposts[i].createdAt + "</td></tr>");
     }
 }
+
+function get_rooms() {
+    var usr = user.get("lastAccessedRoom");
+    usr.fetch({
+	success: function(result){
+	    console.log("LAR:");
+	    console.log(result);
+	    $('#currroomtext').text(result.attributes.name);
+	},
+	error: function(error) {
+	    console.log("LAR Error: "+error.message);
+	}
+    });
+
+}
+
 get_bulletins();
 get_friends();
+
+get_rooms();
 
 $('#bulletinpost').click(function() {
     var text = $('#bulletintext').val();
@@ -148,6 +166,11 @@ $('#anonpost').click(function() {
     var text = $('#bulletintext').val();
     console.log(text);
     create_bulletin(text, true);
+});
+
+$('#setroomtxt').click(function() {
+    var text = $('#setroomtxt').val();
+
 });
 
 function addChore() {
@@ -174,6 +197,7 @@ function addChore() {
 		relation.add(friend_chore);
 		curr_room.save();
 		document.getElementById("choreForm").reset();
+		showChores();
     }, function(error) {});
 }
 
@@ -213,3 +237,42 @@ function splitBill() {
 		});
 	}, function(error) {});
 }
+function showChores(){
+    var currentRoom = user.get("lastAccessedRoom");
+    var relation = currentRoom.relation("chores");
+    var query = relation.query();
+    query.limit(10);
+    query.descending('createdAt');
+    query.find({
+        success: function(currentchores) {
+            console.log(currentchores);
+            //choreposts = currentchores;
+            //show_bulletins();
+	    $('.chorecontainer').empty();
+	    for (var i = 0; i < currentchores.length; i++) {
+		console.log(currentchores[i].get('dueDate'));
+		$(".chorecontainer").append("<tr><td>" + currentchores[i].get('chore') + "</td><td>" + currentchores[i].get('dueDate') + "</td></tr>");
+	    }
+            return currentchores;
+        }
+    });
+}
+
+showChores();
+
+function updateRoomList(){
+   var relation = user.relation("rooms");
+   var query = relation.query();
+   query.find({
+     success:function(response){
+       console.log(response);
+       $("#roomlist").empty();
+       for(var i = 0;i<response.length;i++){
+	 console.log(response[i].get('name'));
+	 $("#roomlist").append("<option>"+response[i].get('name')+"</option>")
+       }
+    }
+     
+  });
+}
+updateRoomList();
