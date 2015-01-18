@@ -15,7 +15,7 @@ function get_members() {
             all_members = list;
             $(".roommatecontainer").empty();
             for (var i = 0; i < list.length; i++) {
-                $(".roommatecontainer").append("<li>" + list[i].get('name') + "</li>");
+                $(".roommatecontainer").append("<li><img src='"+list[i].get('picture_url')+"' />" + list[i].get('name') + "</li>");
             }
         }
     });
@@ -53,7 +53,7 @@ function show_friends() {
     $('.friendcontainer').empty();
     $('.friendlist').empty();
     for (var i = 0; i < all_friends.length; i++) {
-        $('.friendcontainer').append('<li>' + all_friends[i].get('name') + ' <a onClick="add_roommate(' + i + ')" href="#">Add</a></li>');
+        $('.friendcontainer').append('<li><img src="'+all_friends[i].get('picture_url')+'" />' + all_friends[i].get('name') + ' <a onClick="add_roommate(' + i + ')" href="#">Add</a></li>');
     }
     for (var i = 0; i < all_members.length; i++) {
         $('.friendlist').append("<option value='" + i + "'>" + all_members[i].get('name') + "</option>");
@@ -106,7 +106,8 @@ function create_bulletin(post, anon) {
         currentRoom.save();
 
         setTimeout(get_bulletins(), 500);
-
+		
+		document.getElementById("postForm").reset();
     }, function(error) {});
 }
 
@@ -173,27 +174,28 @@ $('#setroomtxt').click(function() {
 
 $('#currroomtext').text(user.get("lastAccessedRoom"));
 function addChore() {
-    var date_time = $('#due_date').val();
-    var year = date_time.substring(0, 4);
-    var month = date_time.substring(5, 7);
-    var day = date_time.substring(8, 10);
-    var hour = date_time.substring(11, 13);
-    var min = date_time.substring(14, date_time.length);
-    var due_date = new Date(year, month, day, hour, min, 0, 0);
-    var chore = $('#chore').val();
-    var index = $('.friendlist').val();
-    var person_chosen = all_members[index];
-
-    var Chore = Parse.Object.extend("Chore");
-    var friend_chore = new Chore();
-
-    friend_chore.set("chore", chore);
-    friend_chore.set("personDoingChore", person_chosen);
-    friend_chore.set("dueDate", due_date);
-    friend_chore.save().then(function() {
-        var curr_room = user.get("lastAccessedRoom");
-        var relation = curr_room.relation("chores");
-        relation.add(friend_chore);
-        curr_room.save();
+	var date_time = $('#due_date').val();
+	var year = date_time.substring(0,4);
+	var month = date_time.substring(5,7);
+	var day = date_time.substring(8,10);
+	var hour = date_time.substring(11,13);
+	var min = date_time.substring(14,date_time.length);
+	var due_date = new Date(year, month, day, hour, min, 0, 0);
+	var chore = $('#chore').val();
+	var index = $('.friendlist').val();
+	var person_chosen = all_members[index];
+	
+	var Chore = Parse.Object.extend("Chore");
+	var friend_chore = new Chore();
+	
+	friend_chore.set("chore", chore);
+	friend_chore.set("personDoingChore", person_chosen);
+	friend_chore.set("dueDate", due_date);
+	friend_chore.save().then(function() {
+		var curr_room = user.get("lastAccessedRoom");
+		var relation = curr_room.relation("chores");
+		relation.add(friend_chore);
+		curr_room.save();
+		document.getElementById("choreForm").reset();
     }, function(error) {});
 }

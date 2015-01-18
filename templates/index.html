@@ -66,9 +66,11 @@
         </tr>
       </tbody>
     </table>
+	<form id="postForm">
     <textarea id="bulletintext" placeholder="New Bulletin Post"></textarea>
     <input class="small button" id="bulletinpost" value="Make Post" type="button">
     <input class="small button" id="anonpost" value="Make Anonymous Post" type="button">
+	</form>
   </div>
   <div class="small-6 columns">
     <h2>Bills to Pay</h2>
@@ -109,10 +111,12 @@
         </tr>
       </tbody>
     </table>
+	<form id="choreForm">
     <label>Assign Task To:</label><select class="friendlist"></select>
     <label>Due Date:</label><input type="datetime-local" id="due_date">
 	<input type="text" placeholder="Type of Chore" id="chore">
     <input class="small button" type="button" value="Assign Chore" onClick="addChore()">
+	</form>
   </div>
 
 
