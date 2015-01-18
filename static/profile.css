@@ -1,0 +1,12 @@
+.profile_pic {
+	list-style-type: none;
+}
+
+#pic {
+	width:200px;
+	height:200px;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size:cover;
+}

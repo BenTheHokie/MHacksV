@@ -9,7 +9,7 @@ function get_members() {
     var members = curr_room.relation("members");
     var mq = members.query();
     mq.notEqualTo("fbID", user.get("fbID"));
-
+	mq.ascending("name");
     mq.find({
         success: function(list) {
             all_members = list;
@@ -28,6 +28,7 @@ function get_friends() {
     var curr_room = user.get("lastAccessedRoom")
     var members = curr_room.relation("members");
     var friends = user.relation("friendsUsingApp");
+	members.query().ascending("name");
     members.query().find({
         success: function(list) {
             var ids = [];
@@ -263,6 +264,7 @@ showChores();
 function updateRoomList(){
    var relation = user.relation("rooms");
    var query = relation.query();
+   query.ascending("name");
    query.find({
      success:function(response){
        console.log(response);
