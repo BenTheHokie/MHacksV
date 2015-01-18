@@ -12,7 +12,7 @@ function get_members() {
 
     mq.find({
         success: function(list) {
-			all_members = list;
+            all_members = list;
             $(".roommatecontainer").empty();
             for (var i = 0; i < list.length; i++) {
                 $(".roommatecontainer").append("<li>" + list[i].get('name') + "</li>");
@@ -55,8 +55,8 @@ function show_friends() {
     for (var i = 0; i < all_friends.length; i++) {
         $('.friendcontainer').append('<li>' + all_friends[i].get('name') + ' <a onClick="add_roommate(' + i + ')" href="#">Add</a></li>');
     }
-	for (var i = 0; i < all_members.length; i++) {
-		$('.friendlist').append("<option value='" + i + "'>" + all_members[i].get('name') + "</option>");
+    for (var i = 0; i < all_members.length; i++) {
+        $('.friendlist').append("<option value='" + i + "'>" + all_members[i].get('name') + "</option>");
     }
 }
 
@@ -175,4 +175,3 @@ function addChore() {
 		document.getElementById("choreForm").reset();
     }, function(error) {});
 }
-
