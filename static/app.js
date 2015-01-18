@@ -222,3 +222,20 @@ function showChores(){
 }
 
 showChores();
+
+function updateRoomList(){
+   var relation = user.relation("rooms");
+   var query = relation.query();
+   query.find({
+     success:function(response){
+       console.log(response);
+       $("#roomlist").empty();
+       for(var i = 0;i<response.length;i++){
+	 console.log(response[i].get('name'));
+	 $("#roomlist").append("<option>"+response[i].get('name')+"</option>")
+       }
+    }
+     
+  });
+}
+updateRoomList();
