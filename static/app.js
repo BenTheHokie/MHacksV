@@ -1,5 +1,6 @@
 $(".login").click(logInUser);
 var all_friends = null;
+var all_members = null;
 var boardposts = null;
 
 //get room's members (except for you)
@@ -11,6 +12,7 @@ function get_members() {
 
     mq.find({
         success: function(list) {
+			all_members = list;
             $(".roommatecontainer").empty();
             for (var i = 0; i < list.length; i++) {
                 $(".roommatecontainer").append("<li>" + list[i].get('name') + "</li>");
@@ -52,7 +54,9 @@ function show_friends() {
     $('.friendlist').empty();
     for (var i = 0; i < all_friends.length; i++) {
         $('.friendcontainer').append('<li>' + all_friends[i].get('name') + ' <a onClick="add_roommate(' + i + ')" href="#">Add</a></li>');
-        $('.friendlist').append("<option value='" + i + "'>" + all_friends[i].get('name') + "</option>");
+    }
+	for (var i = 0; i < all_members.length; i++) {
+		$('.friendlist').append("<option value='" + i + "'>" + all_members[i].get('name') + "</option>");
     }
 }
 
@@ -150,8 +154,23 @@ function addChore() {
 	var month = date_time.substring(5,7);
 	var day = date_time.substring(8,10);
 	var hour = date_time.substring(11,13);
-	var min = date_time.substring(14,data_time.length);
+	var min = date_time.substring(14,date_time.length);
 	var due_date = new Date(year, month, day, hour, min, 0, 0);
 	var chore = $('#chore').val();
+	var index = $('.friendlist').val();
+	var person_chosen = all_members[index];
+	
+	var Chore = Parse.Object.extend("Chore");
+	var friend_chore = new Chore();
+	
+	friend_chore.set("chore", chore);
+	friend_chore.set("personDoingChore", person_chosen);
+	friend_chore.set("dueDate", due_date);
+	friend_chore.save().then(function() {
+		var curr_room = user.get("lastAccessedRoom");
+		var relation = curr_room.relation("chores");
+		relation.add(friend_chore);
+		curr_room.save();
+    }, function(error) {});
 }
 
