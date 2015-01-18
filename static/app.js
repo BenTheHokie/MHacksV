@@ -261,6 +261,28 @@ function showChores(){
 
 showChores();
 
+function showBills(){
+    var currentRoom = user.get("lastAccessedRoom");
+    var relation = currentRoom.relation("bills");
+    var query = relation.query();
+    query.limit(10);
+    query.descending('createdAt');
+    query.find({
+        success: function(currentbills) {
+
+	    $('.billcontainer').empty();
+	    for (var i = 0; i < currentbills.length; i++) {
+		//console.log(currentbills[i].get('billType'));
+		$(".billcontainer").append("<tr><td>" + currentbills[i].get('billType') + "</td><td>" + currentbills[i].get('billShare') + "</td><td>" + currentbills[i].get('dueDate') + "</td></tr>");
+	    }
+            return currentbills;
+        }
+    });
+}
+
+showBills();
+
+
 function updateRoomList(){
    var relation = user.relation("rooms");
    var query = relation.query();
