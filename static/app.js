@@ -106,7 +106,8 @@ function create_bulletin(post, anon) {
         currentRoom.save();
 
         setTimeout(get_bulletins(), 500);
-
+		
+		document.getElementById("postForm").reset();
     }, function(error) {});
 }
 
@@ -171,6 +172,7 @@ function addChore() {
 		var relation = curr_room.relation("chores");
 		relation.add(friend_chore);
 		curr_room.save();
+		document.getElementById("choreForm").reset();
     }, function(error) {});
 }
 
