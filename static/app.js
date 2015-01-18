@@ -52,7 +52,7 @@ function show_friends() {
     $('.friendlist').empty();
     for (var i = 0; i < all_friends.length; i++) {
         $('.friendcontainer').append('<li>' + all_friends[i].get('name') + ' <a onClick="add_roommate(' + i + ')" href="#">Add</a></li>');
-	$('.friendlist').append("<option value='"+i+"'>"+all_friends[i].get('name')+"</option>");
+        $('.friendlist').append("<option value='" + i + "'>" + all_friends[i].get('name') + "</option>");
     }
 }
 
@@ -86,25 +86,24 @@ function add_roommate(index) {
     $('a.close-reveal-modal').trigger('click');
 }
 
-function create_bulletin(post,anon){
-	var Post = Parse.Object.extend("Post");
-	var newPost = new Post();
-	newPost.set("post", post);
-	if(anon)
-	  newPost.set("author","Anonymous");
-	else
-	  newPost.set("author", user.get("name"));
-	
-	newPost.save().then(function() {
-			var currentRoom = user.get("lastAccessedRoom");
-			var relation =  currentRoom.relation("bulletin_board");
-			relation.add(newPost);
-			currentRoom.save();
-			
-			setTimeout(get_bulletins(),500);
-			
-		}, function(error) {
-	});
+function create_bulletin(post, anon) {
+    var Post = Parse.Object.extend("Post");
+    var newPost = new Post();
+    newPost.set("post", post);
+    if (anon)
+        newPost.set("author", "Anonymous");
+    else
+        newPost.set("author", user.get("name"));
+
+    newPost.save().then(function() {
+        var currentRoom = user.get("lastAccessedRoom");
+        var relation = currentRoom.relation("bulletin_board");
+        relation.add(newPost);
+        currentRoom.save();
+
+        setTimeout(get_bulletins(), 500);
+
+    }, function(error) {});
 }
 
 
@@ -133,25 +132,25 @@ function show_bulletins() {
 }
 get_bulletins();
 get_friends();
-$('#bulletinpost').click(function(){
-  var text = $('#bulletintext').val();
-  console.log(text);
-  create_bulletin(text,false);
+$('#bulletinpost').click(function() {
+    var text = $('#bulletintext').val();
+    console.log(text);
+    create_bulletin(text, false);
 });
 
-$('#anonpost').click(function(){
-  var text = $('#bulletintext').val();
-  console.log(text);
-  create_bulletin(text,true);
+$('#anonpost').click(function() {
+    var text = $('#bulletintext').val();
+    console.log(text);
+    create_bulletin(text, true);
 });
 
 function addChore() {
-	val date_time = $('#due_date').val();
-	val year = date_time[0:4];
-	val month = date_time[5:7];
-	val day = date_time[8:10];
-	val hour = date_time[11:13];
-	val min = date_time[14:];
-	val due_date = new Date(year, month, day, hour, min, 0, 0);
-	val chore = $('#chore').val();
+    val date_time = $('#due_date').val();
+    val year = date_time[0: 4];
+    val month = date_time[5: 7];
+    val day = date_time[8: 10];
+    val hour = date_time[11: 13];
+    val min = date_time[14: ];
+    val due_date = new Date(year, month, day, hour, min, 0, 0);
+    val chore = $('#chore').val();
 }
