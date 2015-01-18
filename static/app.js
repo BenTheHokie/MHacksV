@@ -145,12 +145,13 @@ $('#anonpost').click(function() {
 });
 
 function addChore() {
-    val date_time = $('#due_date').val();
-    val year = date_time[0: 4];
-    val month = date_time[5: 7];
-    val day = date_time[8: 10];
-    val hour = date_time[11: 13];
-    val min = date_time[14: ];
-    val due_date = new Date(year, month, day, hour, min, 0, 0);
-    val chore = $('#chore').val();
+	var date_time = $('#due_date').val();
+	var year = date_time.substring(0,4);
+	var month = date_time.substring(5,7);
+	var day = date_time.substring(8,10);
+	var hour = date_time.substring(11,13);
+	var min = date_time.substring(14,data_time.length);
+	var due_date = new Date(year, month, day, hour, min, 0, 0);
+	var chore = $('#chore').val();
 }
+
