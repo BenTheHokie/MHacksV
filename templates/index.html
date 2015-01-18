@@ -93,9 +93,11 @@
         </tr>
       </tbody>
     </table>
-    <input type="text" placeholder="Type of Bill (e.g. electric bill)">
-    <input type="text" placeholder="Dollar Value of Bill (e.g. 123.45)">
-    <input type="button" class="small button" value="Split Bill!">
+    <form id="billForm">
+    <input type="text" placeholder="Type of Bill (e.g. electric bill)" id="billType">
+    <input type="text" placeholder="Dollar Value of Bill (e.g. 123.45)" id="billAmount">
+    <input type="button" class="small button" value="Split Bill!" onClick="splitBill()">
+    </form>
   </div>
   <div class="small-6 columns">
     <h2>Chores to Do</h2>

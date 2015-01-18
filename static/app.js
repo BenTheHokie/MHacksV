@@ -137,6 +137,7 @@ function show_bulletins() {
 }
 get_bulletins();
 get_friends();
+
 $('#bulletinpost').click(function() {
     var text = $('#bulletintext').val();
     console.log(text);
@@ -174,4 +175,41 @@ function addChore() {
 		curr_room.save();
 		document.getElementById("choreForm").reset();
     }, function(error) {});
+}
+
+function splitBill() {
+	console.log(all_members.length);
+	if (all_members.length === 0) {
+		all_members.push(user);
+	}
+	var billAmount = parseFloat($('#billAmount').val());
+	console.log("HELL YEAH");
+	console.log(billAmount);
+	console.log(all_members.length);
+	var billShare = billAmount/(all_members.length);
+	var billType = $('#billType').val();
+	
+	var Bill = Parse.Object.extend("Bill");
+	var newBill = new Bill();
+	
+	newBill.set("billShare", billShare);
+	newBill.set("billType", billType);
+	
+	var owners = newBill.relation("billOwners");
+	//since all_members doesn't include current user
+	for(var i =0;i<all_members.length;i++) {
+		owners.add(all_members[i]);
+	}
+	
+	newBill.save().then(function() {
+		var currentRoom = user.get("lastAccessedRoom");
+		currentRoom.fetch({
+			success: function(currentRoom) {
+			var relation = currentRoom.relation("bills");
+			relation.add(newBill);
+			currentRoom.save();
+			document.getElementById("billForm").reset();
+		}
+		});
+	}, function(error) {});
 }
