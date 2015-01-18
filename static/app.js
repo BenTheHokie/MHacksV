@@ -49,8 +49,10 @@ function get_friends() {
 
 function show_friends() {
     $('.friendcontainer').empty();
+    $('.friendlist').empty();
     for (var i = 0; i < all_friends.length; i++) {
         $('.friendcontainer').append('<li>' + all_friends[i].get('name') + ' <a onClick="add_roommate(' + i + ')" href="#">Add</a></li>');
+	$('.friendlist').append("<option value='"+i+"'>"+all_friends[i].get('name')+"</option>");
     }
 }
 
@@ -129,9 +131,8 @@ function show_bulletins() {
         $(".boardcontainer").append("<tr><td>" + boardposts[i].get('author') + "</td><td>" + boardposts[i].get('post') + "</td><td>" + boardposts[i].createdAt + "</td></tr>");
     }
 }
-
 get_bulletins();
-
+get_friends();
 $('#bulletinpost').click(function(){
   var text = $('#bulletintext').val();
   console.log(text);
